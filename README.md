@@ -16,12 +16,6 @@ Favourites are stored locally with Room, ensuring offline access for saved recip
 - Users can search for recipes by keywords (e.g., *Pizza*, *Pasta*)  
 - Displays matching results in a clean list/grid  
 
-###  Recipe Details
-- Tapping any recipe opens a **Details screen** with:  
-  - Ingredients  
-  - Cooking instructions  
-  - Image, title, servings, preparation time  
-
 ### ❤ Favourites
 - Users can **favourite** or **unfavourite** any recipe  
 - Favourites are **cached locally with Room DB**  
