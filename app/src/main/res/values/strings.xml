@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Practice</string>
+    <string name="greeting">Hey User</string>
+    <string name="search_any_recipe">Search any recipe</string>
+    <string name="popular_recipes">Popular Recipes</string>
+    <string name="all_recipes">All recipes</string>
+    <string name="favourite_recipes">Favourite Recipes</string>
+    <string name="search_results">Searched Results</string>
 </resources>
