@@ -57,8 +57,7 @@ Favourites are stored locally with Room, ensuring offline access for saved recip
 ---
 
 ##  APK
-Drive Link : 
-
+Drive Link : https://drive.google.com/file/d/1pSKanddq3URNfaQsS-9qAwEdvH1G1J9J/view?usp=drive_link
 ---
 
 ## 🔑 API Key Configuration
