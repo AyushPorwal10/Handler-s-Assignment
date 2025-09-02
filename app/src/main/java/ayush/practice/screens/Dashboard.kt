@@ -1,8 +1,10 @@
 package ayush.practice.screens
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,85 +30,107 @@ import ayush.practice.navigation.FavouritesRoutes
 import ayush.practice.navigation.HomeRoutes
 import ayush.practice.ui.theme.AppPrimaryColor
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    @Composable
-    fun DashBoardScreen(
-        navController: NavController,
-        currentRoute: String,
-        content: @Composable (PaddingValues) -> Unit = {}
-    ) {
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DashBoardScreen(
+    navController: NavController,
+    currentRoute: String,
+    content: @Composable (PaddingValues) -> Unit = {}
+) {
 
 
-        val bottomNavButton = listOf(
-            BottomNavRoutes.HomeTab,
-            BottomNavRoutes.FavouriteTab,
+    val bottomNavButton = listOf(
+        BottomNavRoutes.HomeTab,
+        BottomNavRoutes.FavouriteTab,
+    )
+
+    val selectedItemRoute = when (currentRoute) {
+        HomeRoutes.HomeScreen.route -> BottomNavRoutes.HomeTab.route
+        FavouritesRoutes.FavouriteScreen.route -> BottomNavRoutes.FavouriteTab.route
+        else -> ""
+    }
+
+
+    val topBarHeading =
+        if (currentRoute == HomeRoutes.HomeScreen.route) stringResource(R.string.greeting) else stringResource(
+            R.string.favourite_recipes
         )
 
-        val selectedItemRoute = when (currentRoute) {
-            HomeRoutes.HomeScreen.route -> BottomNavRoutes.HomeTab.route
-            FavouritesRoutes.FavouriteScreen.route -> BottomNavRoutes.FavouriteTab.route
-            else -> ""
-        }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
 
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
 
-        val topBarHeading =
-            if (currentRoute == HomeRoutes.HomeScreen.route) stringResource(R.string.greeting) else stringResource(
-                R.string.favourite_recipes
-            )
-
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = topBarHeading,
-                            fontWeight = FontWeight.SemiBold,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.Black
-                        )
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.White
-                    )
-                )
-            },
-            bottomBar = {
-                BottomAppBar(containerColor = Color.White) {
-                    bottomNavButton.forEach { item ->
-
-                        NavigationBarItem(
-                            selected = selectedItemRoute == item.route,
-                            icon = {
-                                Icon(
-                                    painter = if(selectedItemRoute == item.route) painterResource(id = item.selectedIcon) else painterResource(id = item.unselectedIcon),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(26.dp),
-                                    tint = if (selectedItemRoute == item.route) AppPrimaryColor else Color.Gray,
-                                    )
-                            }, onClick = {
-                                if (selectedItemRoute != item.route) {
-                                    navController.navigate(item.route) {
-                                        popUpTo(navController.graph.startDestinationId) {
-                                            saveState = true
-                                        }
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                }
-                            },
-                            label = {
-                                Text(item.label, fontWeight = FontWeight.Bold,
-                                    color = if (selectedItemRoute == item.route) AppPrimaryColor else Color.Gray)
-                            },
-                            colors = NavigationBarItemDefaults.colors(
-                                indicatorColor = Color.Transparent
+                        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Icon(
+                                painter = painterResource(R.drawable.hi_user_icon),
+//                                tint = Color.Yellow,
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp)
                             )
+                            Text(
+                                text = topBarHeading,
+                                fontWeight = FontWeight.SemiBold,
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.Black
+                            )
+                        }
+                        Text(
+                            text = stringResource(R.string.discover_tasty_and_healthy_recipe),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = Color.Gray
                         )
-
                     }
+
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.White
+                )
+            )
+        },
+        bottomBar = {
+            BottomAppBar(containerColor = Color.White) {
+                bottomNavButton.forEach { item ->
+
+                    NavigationBarItem(
+                        selected = selectedItemRoute == item.route,
+                        icon = {
+                            Icon(
+                                painter = if (selectedItemRoute == item.route) painterResource(id = item.selectedIcon) else painterResource(
+                                    id = item.unselectedIcon
+                                ),
+                                contentDescription = null,
+                                modifier = Modifier.size(26.dp),
+                                tint = if (selectedItemRoute == item.route) AppPrimaryColor else Color.Gray,
+                            )
+                        }, onClick = {
+                            if (selectedItemRoute != item.route) {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        },
+                        label = {
+                            Text(
+                                item.label, fontWeight = FontWeight.Bold,
+                                color = if (selectedItemRoute == item.route) AppPrimaryColor else Color.Gray
+                            )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            indicatorColor = Color.Transparent
+                        )
+                    )
+
                 }
             }
-        ) { paddingValues ->
-            content(paddingValues)
         }
+    ) { paddingValues ->
+        content(paddingValues)
     }
+}
