@@ -1,7 +1,7 @@
 #  Recipe App
 
 **Recipe App** is a modern Android application that helps users explore recipes from the Spoonacular API.  
-Users can browse popular recipes, search for any dish, view full details (ingredients, instructions), and manage their own favourites list.  
+Users can browse popular recipes, search for any recipe, and manage their own favourites list.  
 Favourites are stored locally with Room, ensuring offline access for saved recipes.  
 
 ---
