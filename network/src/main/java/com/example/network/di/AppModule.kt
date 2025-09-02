@@ -18,7 +18,7 @@ import javax.inject.Singleton
 object AppModule {
 
     private const val BASE_URL = "https://api.spoonacular.com/"
-    private const val API_KEY = "REPLACE_WITH_YOUR_API_KEY"
+    private const val API_KEY = "YOUR_API_KEY_HERE"
 
     @Singleton
     @Provides
